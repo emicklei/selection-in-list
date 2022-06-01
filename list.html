@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <style>
+.column {
+    float: left;
+    width: 200px; 
+    display:block;
+    height: 250px;
+    overflow:scroll;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+selection-in-list.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+a {
+    text-decoration: none;
+}
+
+.selected {
+    display: block;
+    background-color: black;
+    color: yellow;
+    width: 100%;
+}
+        </style>
+    </head>    
+    <body>
+        <script>
+            class SelectionInList extends HTMLElement {
+                constructor() {
+                    // Always call super first in constructor
+                    super();
+                    this.selectionEventHandler = null;
+                    this.lastSelected = null;                    
+                } 
+                getLastSelected() { return this.lastSelected; }
+                setLastSelected(what) { this.lastSelected = what; }
+            }
+            // https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define#examples
+            customElements.define('selection-in-list', SelectionInList);
+
+            //var lastSelected = null;
+            function select(me) { 
+                console.log(me.dataset.value);
+                let ul = me.parentNode.parentNode; 
+
+                if (ul.getLastSelected() !== null) { 
+                    ul.getLastSelected().classList.remove("selected");    
+                }
+                if (me === ul.getLastSelected()) {
+                    ul.setLastSelected(null);
+                    return;
+                }
+                me.classList.add("selected");
+                ul.setLastSelected(me);
+            }
+        </script>         
+            <div class="row">
+                <div class="column">
+                    <selection-in-list id="list1" class="no-bullets">
+                        <li><a data-value='{"dirname":"test1"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test2"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test3"}' onclick="javascript:select(this);" href="#">something else</a></li>
+                        <li><a data-value='{"dirname":"test4"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test5"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test6"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test7"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test8"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test11"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test12"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test13"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test14"}' onclick="javascript:select(this);" href="#">short</a></li>
+                        <li><a data-value='{"dirname":"test15"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test16"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test17"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test18"}' onclick="javascript:select(this);" href="#">something</a></li>                        
+                    </selection-in-list>
+                </div>
+ 
+                <div class="column">
+                    <selection-in-list id="list2" class="no-bullets">
+                        <li><a data-value='{"dirname":"test1"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test2"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test3"}' onclick="javascript:select(this);" href="#">something else</a></li>
+                        <li><a data-value='{"dirname":"test4"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test5"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test6"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test7"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test8"}' onclick="javascript:select(this);" href="#">something</a></li>                        
+                        <li><a data-value='{"dirname":"test11"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test12"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test13"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test14"}' onclick="javascript:select(this);" href="#">short</a></li>
+                        <li><a data-value='{"dirname":"test15"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test16"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test17"}' onclick="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test18"}' onclick="javascript:select(this);" href="#">something</a></li>
+                    </selection-in-list>
+                </div>
+            </div>
+        </div> 
+    </body>
+</html>
