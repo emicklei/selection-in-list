@@ -45,38 +45,46 @@ a {
                 } 
                 getLastSelected() { return this.lastSelected; }
                 setLastSelected(what) { this.lastSelected = what; }
+
+                addItem(label,value) {
+                    let li = document.createElement('li');
+                    let an = document.createElement('a');
+                    an.setAttribute('data-value',value);
+                    an.setAttribute('href','#');
+                    an.setAttribute('onmousedown','javascript:select(this);');
+                    an.textContent = label;
+                    li.appendChild(an);
+                    this.appendChild(li);
+                }
+                select(me) { 
+                    console.log(me.dataset.value);
+                    if (this.getLastSelected() !== null) { 
+                        this.getLastSelected().classList.remove('selected');    
+                    }
+                    if (me === this.getLastSelected()) {
+                        this.setLastSelected(null);
+                        return;
+                    }
+                    me.classList.add('selected');
+                    this.setLastSelected(me);
+                }
             }
             // https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define#examples
             customElements.define('selection-in-list', SelectionInList);
 
-            function select(me) { 
-                console.log(me.dataset.value);
-                let ul = me.parentNode.parentNode; 
-
-                if (ul.getLastSelected() !== null) { 
-                    ul.getLastSelected().classList.remove("selected");    
-                }
-                if (me === ul.getLastSelected()) {
-                    ul.setLastSelected(null);
-                    return;
-                }
-                me.classList.add("selected");
-                ul.setLastSelected(me);
+            function select(me) {               
+                me.parentNode.parentNode.select(me);
             }
-            function addItemTo(label,value,ul) {
-                let li = document.createElement('li');
-                let an = document.createElement('a');
-                an.setAttribute('data-value',value);
-                an.setAttribute('href','#');
-                an.setAttribute('onmousedown','javascript:select(this);');
-                an.textContent = label;
-                li.appendChild(an);
-                ul.appendChild(li);
+            function keydown(event){
+                if (event.code == 'ArrowUp') {
+                    console.log(event);
+                    event.preventDefault();
+                }
             }
         </script>         
             <div class="row">
                 <div class="column">
-                    <selection-in-list id="list1" class="no-bullets">
+                    <selection-in-list id="list1" class="no-bullets" onkeydown="javascript:keydown(event);"><!-- in constructor? -->
                         <li><a data-value='{"dirname":"test1"}' onmousedown="javascript:select(this);" href="#">something</a></li>
                         <li><a data-value='{"dirname":"test2"}' onmousedown="javascript:select(this);" href="#">something</a></li>
                         <li><a data-value='{"dirname":"test3"}' onmousedown="javascript:select(this);" href="#">something else</a></li>
@@ -119,7 +127,7 @@ a {
             </div>
         <script>
             let list1 = document.querySelector('#list1');
-            this.addItemTo('added','{"dirname":"added"}',list1);
+            list1.addItem('added','{"dirname":"added"}');
         </script>
     </body>
 </html>
