@@ -24,12 +24,16 @@ selection-in-list.no-bullets {
 
 a {
     text-decoration: none;
+    margin-left: 5px;
+}
+
+a.selected {
+    color: yellow;
 }
 
 .selected {
     display: block;
-    background-color: black;
-    color: yellow;
+    background-color: black;    
     width: 100%;
 }
         </style>
@@ -51,7 +55,7 @@ a {
                     let an = document.createElement('a');
                     an.setAttribute('data-value',value);
                     an.setAttribute('href','#');
-                    an.setAttribute('onmousedown','javascript:select(this);');
+                    an.setAttribute('onmouseup','javascript:select(this);');
                     an.textContent = label;
                     li.appendChild(an);
                     this.appendChild(li);
@@ -59,12 +63,14 @@ a {
                 select(me) { 
                     console.log(me.dataset.value);
                     if (this.getLastSelected() !== null) { 
+                        this.getLastSelected().parentNode.classList.remove('selected');
                         this.getLastSelected().classList.remove('selected');    
                     }
                     if (me === this.getLastSelected()) {
                         this.setLastSelected(null);
                         return;
                     }
+                    me.parentNode.classList.add('selected');
                     me.classList.add('selected');
                     this.setLastSelected(me);
                 }
@@ -85,43 +91,43 @@ a {
             <div class="row">
                 <div class="column">
                     <selection-in-list id="list1" class="no-bullets" onkeydown="javascript:keydown(event);"><!-- in constructor? -->
-                        <li><a data-value='{"dirname":"test1"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test2"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test3"}' onmousedown="javascript:select(this);" href="#">something else</a></li>
-                        <li><a data-value='{"dirname":"test4"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test5"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test6"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test7"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test8"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test11"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test12"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test13"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test14"}' onmousedown="javascript:select(this);" href="#">short</a></li>
-                        <li><a data-value='{"dirname":"test15"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test16"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test17"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test18"}' onmousedown="javascript:select(this);" href="#">something</a></li>                        
+                        <li><a data-value='{"dirname":"test1"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test2"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test3"}' onmouseup="javascript:select(this);" href="#">something else</a></li>
+                        <li><a data-value='{"dirname":"test4"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test5"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test6"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test7"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test8"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test11"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test12"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test13"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test14"}' onmouseup="javascript:select(this);" href="#">short</a></li>
+                        <li><a data-value='{"dirname":"test15"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test16"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test17"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test18"}' onmouseup="javascript:select(this);" href="#">something</a></li>                        
                     </selection-in-list>
                 </div>
  
                 <div class="column">
                     <selection-in-list id="list2" class="no-bullets">
-                        <li><a data-value='{"dirname":"test1"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test2"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test3"}' onmousedown="javascript:select(this);" href="#">something else</a></li>
-                        <li><a data-value='{"dirname":"test4"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test5"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test6"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test7"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test8"}' onmousedown="javascript:select(this);" href="#">something</a></li>                        
-                        <li><a data-value='{"dirname":"test11"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test12"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test13"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test14"}' onmousedown="javascript:select(this);" href="#">short</a></li>
-                        <li><a data-value='{"dirname":"test15"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test16"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test17"}' onmousedown="javascript:select(this);" href="#">something</a></li>
-                        <li><a data-value='{"dirname":"test18"}' onmousedown="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test1"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test2"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test3"}' onmouseup="javascript:select(this);" href="#">something else</a></li>
+                        <li><a data-value='{"dirname":"test4"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test5"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test6"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test7"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test8"}' onmouseup="javascript:select(this);" href="#">something</a></li>                        
+                        <li><a data-value='{"dirname":"test11"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test12"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test13"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test14"}' onmouseup="javascript:select(this);" href="#">short</a></li>
+                        <li><a data-value='{"dirname":"test15"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test16"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test17"}' onmouseup="javascript:select(this);" href="#">something</a></li>
+                        <li><a data-value='{"dirname":"test18"}' onmouseup="javascript:select(this);" href="#">something</a></li>
                     </selection-in-list>
                 </div>
             </div>
