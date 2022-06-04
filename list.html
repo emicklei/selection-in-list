@@ -111,7 +111,7 @@ a.selected {
         <script>
             let list1 = document.querySelector('#list1');
             for (let i = 0; i < 30; i++) {
-                list1.addItem('click me '+i,'added '+i);
+                list1.addItem('click me '+i,'click me '+i);
             }
             list1.addEventListener('selection', function(which) {
                 console.log('list1:', which.detail);
@@ -119,7 +119,7 @@ a.selected {
 
             let list2 = document.querySelector('#list2');
             for (let i = 0; i < 30; i++) {
-                list2.addItem('select me '+i,'inserted '+i);
+                list2.addItem('select me '+i,'select me '+i);
             }
             //list2.clearItems();            
             list2.addEventListener('selection', function(which) {
