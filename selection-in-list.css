@@ -1,0 +1,21 @@
+selection-in-list.no-bullets {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+}
+
+a {
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+a.selected {
+    color: yellow;
+}
+
+/* full width background of list item */
+.selected {
+    display: block;
+    background-color: black;    
+    width: 100%;
+}
