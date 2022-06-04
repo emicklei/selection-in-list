@@ -45,7 +45,12 @@ a.selected {
                 constructor() {
                     // Always call super first in constructor
                     super();
-                    this.lastSelected = null;                    
+                    this.lastSelected = null; 
+                    this.addEventListener('keydown',function(event){
+                        if (event.key =='ArrowDown') {
+                            this.handleArrowDown(event);
+                        }
+                    }); 
                 } 
                 getSelected() { return this.lastSelected; }
                 setSelected(what) { this.lastSelected = what; }
@@ -82,6 +87,10 @@ a.selected {
                     this.setSelected(me);
                     this.dispatchEvent(new CustomEvent('selection',{detail: me.getAttribute('data-value')}));
                 }
+                handleArrowDown(event) {
+                    console.log("arrowdown:",event);
+                    event.preventDefault();
+                } 
             }
             // https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define#examples
             customElements.define('selection-in-list', SelectionInList);
@@ -90,17 +99,10 @@ a.selected {
             function select(me) {               
                 me.parentNode.parentNode.select(me);
             }
-            // TODO how to get this behaviour in the class?
-            function keydown(event){
-                if (event.code == 'ArrowUp') {
-                    console.log(event);
-                    event.preventDefault();
-                }
-            }
         </script>         
             <div class="row">
                 <div class="column">
-                    <selection-in-list id="list1" class="no-bullets" onkeydown="javascript:keydown(event);" /><!-- in constructor? -->
+                    <selection-in-list id="list1" class="no-bullets" />
                 </div>
  
                 <div class="column">
