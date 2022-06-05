@@ -33,7 +33,7 @@
         <script>
             let list1 = document.querySelector('#list1');
             for (let i = 0; i < 30; i++) {
-                list1.addItem('click me '+i,'click me '+i);
+                list1.addItem('&#9730; click me '+i,'click me '+i);
             }
             list1.addEventListener('selection', function(which) {
                 console.log('list1:', which.detail);

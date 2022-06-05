@@ -6,6 +6,8 @@ A widget to display items in a list. Each item can:
 - show icon
 - have a context menu
 - produced an event on selection
+- up and down arrow keys
+
 
 ## usage
 

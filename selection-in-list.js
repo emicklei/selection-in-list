@@ -8,22 +8,30 @@ class SelectionInList extends HTMLElement {
             if (event.key =='ArrowDown') {
                 this.handleArrowDown(event);
             }
+            if (event.key =='ArrowUp') {
+                this.handleArrowUp(event);
+            }
         }); 
-        // TODO use shadow root? this does not work because or error.
+        // TODO use shadow root? this does not work because of error.
         // this.classList.add("no-bullets");
     } 
     getSelected() { return this.lastSelected; }
     setSelected(what) { this.lastSelected = what; }
 
-    addItem(label,value) {
+    // add a ListItem with an anchor that shows the label and is clickable.
+    // returns the ListItem
+    addItem(labelHTML,value) {
         let li = document.createElement('li');
         let an = document.createElement('a');
         an.setAttribute('data-value',value);
         an.setAttribute('href','#');
-        an.setAttribute('onmouseup','javascript:selectItem(this);');
-        an.textContent = label;
+        an.addEventListener('mouseup',function(event) {
+            this.parentNode.parentNode.selectItem(event.target);
+        });
+        an.innerHTML = labelHTML;
         li.appendChild(an);
         this.appendChild(li);
+        return li;
     }
     clearItems() {
         this.replaceChildren();
@@ -45,6 +53,8 @@ class SelectionInList extends HTMLElement {
         // anchor element
         anchor.classList.add('selected');
         this.setSelected(anchor);
+        // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
+        anchor.scrollIntoView(false);
         this.dispatchEvent(new CustomEvent('selection',{detail: anchor.getAttribute('data-value')}));
     }
     handleArrowDown(event) {
@@ -53,16 +63,26 @@ class SelectionInList extends HTMLElement {
             let downLi = li.nextSibling;
             if (downLi !== null) {
                 let downA = downLi.firstChild;
-                this.selectItem(downA);
-                event.preventDefault();
+                if (downA !== null) {
+                    this.selectItem(downA);
+                    event.preventDefault();
+                }
             }            
         }        
     } 
+    handleArrowUp(event) {
+        if (this.getSelected() !== null) {
+            let li = this.getSelected().parentNode;
+            let upLi = li.previousSibling;
+            if (upLi !== null) {
+                let upA = upLi.firstChild;
+                if (upA !== null) {
+                    this.selectItem(upA);
+                    event.preventDefault();
+                }
+            }            
+        }        
+    }     
 }
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define#examples
 customElements.define('selection-in-list', SelectionInList);
-
-// TODO how to skip this indirection?
-function selectItem(me) {               
-    me.parentNode.parentNode.selectItem(me);
-}
