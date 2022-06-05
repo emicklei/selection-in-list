@@ -2,6 +2,7 @@ class SelectionInList extends HTMLElement {
     constructor() {
         // Always call super first in constructor
         super();
+        // anchor element selected
         this.lastSelected = null; 
         this.addEventListener('keydown',function(event){
             if (event.key =='ArrowDown') {
@@ -19,7 +20,7 @@ class SelectionInList extends HTMLElement {
         let an = document.createElement('a');
         an.setAttribute('data-value',value);
         an.setAttribute('href','#');
-        an.setAttribute('onmouseup','javascript:select(this);');
+        an.setAttribute('onmouseup','javascript:selectItem(this);');
         an.textContent = label;
         li.appendChild(an);
         this.appendChild(li);
@@ -27,34 +28,41 @@ class SelectionInList extends HTMLElement {
     clearItems() {
         this.replaceChildren();
     }
-    select(me) {
+    selectItem(anchor) {
         if (this.getSelected() !== null) { 
             // list element
             this.getSelected().parentNode.classList.remove('selected');
             // anchor element
             this.getSelected().classList.remove('selected');    
         }
-        if (me === this.getSelected()) {
+        if (anchor === this.getSelected()) {
             this.setSelected(null);
             this.dispatchEvent(new Event('selection',{detail: null}));
             return;
         }
         // list element
-        me.parentNode.classList.add('selected');
+        anchor.parentNode.classList.add('selected');
         // anchor element
-        me.classList.add('selected');
-        this.setSelected(me);
-        this.dispatchEvent(new CustomEvent('selection',{detail: me.getAttribute('data-value')}));
+        anchor.classList.add('selected');
+        this.setSelected(anchor);
+        this.dispatchEvent(new CustomEvent('selection',{detail: anchor.getAttribute('data-value')}));
     }
     handleArrowDown(event) {
-        console.log("arrowdown:",event);
-        event.preventDefault();
+        if (this.getSelected() !== null) {
+            let li = this.getSelected().parentNode;
+            let downLi = li.nextSibling;
+            if (downLi !== null) {
+                let downA = downLi.firstChild;
+                this.selectItem(downA);
+                event.preventDefault();
+            }            
+        }        
     } 
 }
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define#examples
 customElements.define('selection-in-list', SelectionInList);
 
 // TODO how to skip this indirection?
-function select(me) {               
-    me.parentNode.parentNode.select(me);
+function selectItem(me) {               
+    me.parentNode.parentNode.selectItem(me);
 }
