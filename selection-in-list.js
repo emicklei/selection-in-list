@@ -53,8 +53,6 @@ class SelectionInList extends HTMLElement {
         // anchor element
         anchor.classList.add('selected');
         this.setSelected(anchor);
-        // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
-        anchor.scrollIntoView(false);
         this.dispatchEvent(new CustomEvent('selection',{detail: anchor.getAttribute('data-value')}));
     }
     handleArrowDown(event) {
@@ -65,6 +63,8 @@ class SelectionInList extends HTMLElement {
                 let downA = downLi.firstChild;
                 if (downA !== null) {
                     this.selectItem(downA);
+                    // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
+                    downA.scrollIntoView(false);
                     event.preventDefault();
                 }
             }            
@@ -78,6 +78,7 @@ class SelectionInList extends HTMLElement {
                 let upA = upLi.firstChild;
                 if (upA !== null) {
                     this.selectItem(upA);
+                    upA.scrollIntoView(false);
                     event.preventDefault();
                 }
             }            
