@@ -28,6 +28,7 @@ A widget to display items in a list. Each item can:
 - how to show icon next to label (lead,tail)
 - search in list
 - on key up/down, the content shifts left
+- tested on Chrome only
 
 ###
 
