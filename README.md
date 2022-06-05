@@ -3,8 +3,6 @@
 A widget to display items in a list. Each item can:
 - be selected
 - be de-selected
-- show icon
-- have a context menu
 - produced an event on selection
 - up and down arrow keys
 
@@ -22,3 +20,15 @@ A widget to display items in a list. Each item can:
     });
 
 ![list](list1.png)
+
+## todo
+
+- tab should leave widget
+- add context menu
+- how to show icon next to label (lead,tail)
+- search in list
+- on key up/down, the content shifts left
+
+###
+
+MIT License. https://ernestmicklei.com

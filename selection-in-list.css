@@ -4,13 +4,13 @@ selection-in-list.no-bullets {
     margin: 0; /* Remove margins */
 }
 
+a.selected {
+    color: yellow;
+}
+
 a {
     text-decoration: none;
     margin-left: 5px;
-}
-
-a.selected {
-    color: yellow;
 }
 
 /* full width background of list item */
